@@ -1,17 +1,18 @@
 # Jamshed Ashurov
-# 12/16/2017
+# 01/11/2018
 # brick.py
-# This file creates the bricks.
+# This file creates the bricks(images).
 
 import pygame
 
 
+# This class creates the Brick class of the game. It upload the image of the brick
 class Brick(pygame.sprite.Sprite):
 
-    def __init__(self, width, height, color, mainsurface):
+    def __init__(self, file_name):
         super().__init__()
-        self.mainsurface = mainsurface
-        self.height = height
-        self.image = pygame.Surface((width, height))
+        self.image = pygame.image.load(str(file_name))
         self.rect = self.image.get_rect()
-        self.image.fill(color)
+
+
+

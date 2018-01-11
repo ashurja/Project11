@@ -1,21 +1,19 @@
 # Jamshed Ashurov
-# 12/16/2017
+# 01/11/2018
 # paddle.py
 # This file creates paddle and function to move the ball
 
 import pygame
 
 
+# Creates the Paddle class of the game. It loads the image of the paddle and moves it.
 class Paddle(pygame.sprite.Sprite):
 
-    def __init__(self, color, mainsurface):
+    def __init__(self, mainsurface):
         super().__init__()
         self.mainsurface = mainsurface
-        self.WIDTH = 60
-        self.HEIGHT = 10
-        self.image = pygame.Surface((self.WIDTH, self.HEIGHT))
+        self.image = pygame.image.load("water-1018808_960_720.jpg")
         self.rect = self.image.get_rect()
-        self.image.fill(color)
 
     def move(self, xpos):
         """

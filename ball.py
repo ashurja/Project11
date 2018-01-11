@@ -1,5 +1,5 @@
 # Jamshed Ashurov
-# 12/16/2017
+# 01/11/2018
 # ball.py
 # This file creates the ball, functions to move it, and functions for collisions
 
@@ -7,16 +7,16 @@ import pygame
 import random
 
 
+# Creates the Call class of the game. Uploads the image of the ball and sets up the speed of the ball
 class Ball(pygame.sprite.Sprite):
 
-    def __init__(self, color, mainsurface):
+    def __init__(self, mainsurface):
         super().__init__()
         self.RADIUS = 10
         self.mainsurface = mainsurface
-        self.image = pygame.Surface((self.RADIUS, self.RADIUS))
-        pygame.draw.circle(self.image, color, (5, 5), 5, 0)
+        self.image = pygame.image.load("download (1).jpeg")
         self.rect = self.image.get_rect()
-        self.speedx = random.randint(5, 7)
+        self.speedx = random.randint(4, 7)
         self.speedy = random.randint(5, 7)
 
     def move(self):

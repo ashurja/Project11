@@ -1,5 +1,5 @@
 # Jamshed Ashurov
-# 12/16/2017
+# 01/11/2018
 # breakout.py
 # This is the main file of the program. It imports all the classes to make the breakout game
 
@@ -30,38 +30,57 @@ def main():
     ballGroup = pygame.sprite.Group()
     Turns = 0
     # Sets up the colors
-    RED = (255, 0, 0)
-    ORANGE = (255, 165, 0)
-    YELLOW = (255, 255, 0)
-    GREEN =(0, 255, 0)
-    CYAN = (0, 255, 255)
+    GREY = (41, 41, 41)
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+    t = 0
+    z = 1
+    # 10 columns to put the images
+    column1 = []
+    column2 = []
+    column3 = []
+    column4 = []
+    column5 = []
+    column6 = []
+    column7 = []
+    column8 = []
+    column9 = []
+    column10 = []
+    columns = [column1, column2, column3, column4, column5, column6, column7, column8, column9, column10]
+
+    # This code starts with (0, 1) then goes on to (10, 10) inserting 10 images per column
+    for column in columns:
+        for y in range(10):
+            for x in range(t, z):
+                name = "images/" + str(x) + "_" + str(y) + ".jpg"
+                column.append(name)
+        t += 1
+        z += 1
 
     xposition = BRICK_X_OFFSET
     yposition = BRICK_Y_OFFSET
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
-    for colour in colors:          # Loop that creates the bricks
-        for y in range(2):
-            for x in range(BRICKS_PER_ROW):
-                myBrick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, colour, mainsurface)
-                myBrick.rect.x = xposition
-                myBrick.rect.y = yposition
-                xposition += BRICK_WIDTH + BRICK_SEP
-                mainsurface.blit(myBrick.image, myBrick.rect)
-                bricksGroup.add(myBrick)
-            xposition = 0
+    # For every image in the column group, starts in the initial position of (0, 70), then moves down the column with
+    # the space distance of 4 + the height of the brick(8). Then it start with x as 4 + width of the brick(36.4) and
+    # y as 70 and again moves down the column. The process repeats 10 times.
+    for column in columns:
+        for columna in column:
+            myBrick = brick.Brick(columna)
+            myBrick.rect.x = xposition
+            myBrick.rect.y = yposition
             yposition += BRICK_HEIGHT + BRICK_SEP
-        xposition = 0
+            mainsurface.blit(myBrick.image, myBrick.rect)
+            bricksGroup.add(myBrick)
+        yposition = BRICK_Y_OFFSET
+        xposition += BRICK_WIDTH + BRICK_SEP
 
     # Creates and positions the paddle
-    myPaddle = paddle.Paddle(WHITE, mainsurface)
+    myPaddle = paddle.Paddle(mainsurface)
     myPaddle.rect.y = APPLICATION_HEIGHT-PADDLE_Y_OFFSET
     mainsurface.blit(myPaddle.image, myPaddle.rect)
     paddleGroup.add(myPaddle)
 
     # Creates and positions the ball
-    myBall = ball.Ball(WHITE, mainsurface)
+    myBall = ball.Ball(mainsurface)
     myBall.rect.x = APPLICATION_WIDTH/2
     myBall.rect.y = APPLICATION_HEIGHT/2
     ballGroup.add(myBall)
@@ -76,7 +95,7 @@ def main():
             myBall.rect.x = APPLICATION_WIDTH / 2
             myBall.rect.y = APPLICATION_HEIGHT / 2
             Turns = Turns + 1
-
+            pygame.time.wait(300)
         # When the number of turns reaches three, the game over message appears.
         if Turns == NUM_TURNS:
             mainsurface.fill(BLACK)
@@ -112,7 +131,7 @@ def main():
 
         # Makes the breakout game
         else:
-            mainsurface.fill(BLACK)
+            mainsurface.fill(GREY)
             for myBrick in bricksGroup:
                 mainsurface.blit(myBrick.image, myBrick.rect)
 
